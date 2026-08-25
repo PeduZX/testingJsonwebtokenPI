@@ -1,6 +1,3 @@
-// ========================
-// Cadastro
-// ========================
 async function cadastrar() {
   const nome = document.getElementById("input-nome").value.trim();
   const email = document.getElementById("input-email").value.trim();
@@ -51,9 +48,6 @@ async function cadastrar() {
   }
 }
 
-// ========================
-// Login
-// ========================
 async function login() {
   const email = document.getElementById("input-email").value.trim();
   const senha = document.getElementById("input-senha").value.trim();
@@ -85,16 +79,12 @@ async function login() {
   }
 }
 
-// ========================
-// Perfil — carrega ao abrir a página
-// ========================
 window.addEventListener("DOMContentLoaded", () => {
   const token = localStorage.getItem("token");
   const nome = localStorage.getItem("nome");
   const email = localStorage.getItem("email");
 
-  // Troca botão "Faça Login" pelo nome do usuário em qualquer página
-  const loginBtn = document.querySelector(".login-btn");
+  const loginBtn = document.querySelector(".btnLogin");
   if (loginBtn) {
     if (token && nome) {
       loginBtn.textContent = nome;
@@ -105,23 +95,18 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // -------------------------------------------------------
-  // POP-UP DE LOGIN — exibe se não estiver autenticado
-  // Páginas públicas (login, cadastro) ficam livres do pop-up
-  // -------------------------------------------------------
   const paginasPublicas = ["login.html", "cadastrar.html"];
   const paginaAtual = window.location.pathname.split("/").pop();
   const isPaginaPublica = paginasPublicas.includes(paginaAtual);
 
   if (!token && !isPaginaPublica) {
     mostrarPopupLogin();
-    return; // interrompe: não inicializa o site sem login
+    return;
   }
 
-  // Só roda o resto se for a página de perfil
   const isPaginaProtegida = document.getElementById("profileName");
   if (!isPaginaProtegida) {
-    inicializarSite(); // página comum (home, etc.) — usuário já logado
+    inicializarSite();
     return;
   }
 
@@ -156,11 +141,7 @@ async function contarUsuarios() {
   }
 }
 
-// ========================
-// Pop-up de login
-// ========================
 function mostrarPopupLogin() {
-  // Cria o overlay
   const overlay = document.createElement("div");
   overlay.id = "login-overlay";
   overlay.style.cssText = `
@@ -193,7 +174,6 @@ function mostrarPopupLogin() {
       font-family: 'DM Sans', sans-serif;
     ">
 
-      <!-- Logo -->
       <div style="display:flex; align-items:center; gap:10px; margin-bottom:1.5rem;">
         <div style="
           width:38px; height:38px;
@@ -208,7 +188,6 @@ function mostrarPopupLogin() {
         </span>
       </div>
 
-      <!-- Alerta -->
       <div style="
         background: rgba(240,202,36,0.10);
         border: 1px solid rgba(240,202,36,0.30);
@@ -225,7 +204,6 @@ function mostrarPopupLogin() {
         </p>
       </div>
 
-      <!-- Título -->
       <h2 style="font-family:'Syne',sans-serif; font-size:22px; font-weight:700; color:#fff; margin:0 0 .35rem; line-height:1.2;">
         Faça login para continuar
       </h2>
@@ -233,7 +211,6 @@ function mostrarPopupLogin() {
         Conecte-se com estudantes, compartilhe conhecimento e alcance seus objetivos em grupo.
       </p>
 
-      <!-- Botões -->
       <div style="display:flex; flex-direction:column; gap:10px;">
         <a href="login.html" style="
           background: #f0ca24;
@@ -270,7 +247,6 @@ function mostrarPopupLogin() {
         </a>
       </div>
 
-      <!-- Rodapé -->
       <p id="p-footer-msg" style="margin:1.25rem 0 0; font-size:12px; color:#7a6fa8; text-align:center;">
   <i class="ri-group-line" style="font-size:13px; vertical-align:-2px; margin-right:4px;"></i>
   Carregando...
@@ -283,43 +259,40 @@ function mostrarPopupLogin() {
   contarUsuarios();
 }
 
-// ========================
-// Inicializa o site
-// ========================
 function inicializarSite() {
-  const topHeader = document.getElementById("top-header");
-  const burgerBtn = document.getElementById("burgerBtn");
-  const sideMenu = document.getElementById("sideMenu");
-  const navOverlay = document.getElementById("navOverlay");
-  const closeMenuBtn = document.getElementById("closeMenuBtn");
-  const burgerIcon = document.getElementById("burgerIcon");
+  const siteHeader = document.getElementById("siteHeader");
+  const menuToggle = document.getElementById("menuToggle");
+  const navDrawer = document.getElementById("navDrawer");
+  const menuOverlay = document.getElementById("menuOverlay");
+  const menuCloseBtn = document.getElementById("menuCloseBtn");
+  const menuToggleIcon = document.getElementById("menuToggleIcon");
 
-  if (!topHeader) return; // página sem header (ex.: login/cadastro)
+  if (!siteHeader) return;
 
   window.addEventListener("scroll", () => {
-    topHeader.classList.toggle("is-scrolled", window.scrollY > 20);
+    siteHeader.classList.toggle("is-scrolled", window.scrollY > 20);
   });
 
   function openMenu() {
-    sideMenu.classList.add("is-open");
-    navOverlay.classList.add("is-open");
-    burgerIcon.className = "ri-close-line";
+    navDrawer.classList.add("is-open");
+    menuOverlay.classList.add("is-open");
+    menuToggleIcon.className = "ri-close-line";
     document.body.style.overflow = "hidden";
   }
   function closeMenu() {
-    sideMenu.classList.remove("is-open");
-    navOverlay.classList.remove("is-open");
-    burgerIcon.className = "ri-menu-3-line";
+    navDrawer.classList.remove("is-open");
+    menuOverlay.classList.remove("is-open");
+    menuToggleIcon.className = "ri-menu-3-line";
     document.body.style.overflow = "";
   }
 
-  burgerBtn.addEventListener("click", () =>
-    sideMenu.classList.contains("is-open") ? closeMenu() : openMenu(),
+  menuToggle.addEventListener("click", () =>
+    navDrawer.classList.contains("is-open") ? closeMenu() : openMenu(),
   );
-  closeMenuBtn.addEventListener("click", closeMenu);
-  navOverlay.addEventListener("click", closeMenu);
+  menuCloseBtn.addEventListener("click", closeMenu);
+  menuOverlay.addEventListener("click", closeMenu);
 
-  const featureCards = document.querySelectorAll(".feature-card");
+  const featureCards = document.querySelectorAll(".featureCard");
   const cardObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry, i) => {
@@ -333,9 +306,6 @@ function inicializarSite() {
   featureCards.forEach((card) => cardObserver.observe(card));
 }
 
-// ========================
-// Editar perfil
-// ========================
 async function editarUser() {
   const token = localStorage.getItem("token");
   const inputNome = document.getElementById("input-nome").value.trim();
@@ -375,17 +345,10 @@ async function editarUser() {
   }
 }
 
-// ========================
-// Logout
-// ========================
 function logout() {
   localStorage.clear();
   window.location.href = "login.html";
 }
-
-// =========================
-//RANKING
-// =========================
 
 async function gerarRanking() {
   try {
@@ -396,12 +359,11 @@ async function gerarRanking() {
 
     const data = await resp.json();
 
-    if (!resp.ok ) return;
+    if (!resp.ok) return;
 
-   
     const mainContent = document.getElementById("main-content");
 
-    mainContent.innerHTML = `<!-- Page Header -->
+    mainContent.innerHTML = `
       <div class="page-header">
         <div class="page-header-tag">
           <i class="ri-sparkling-line"></i> Atualizado semanalmente
@@ -413,9 +375,7 @@ async function gerarRanking() {
         </p>
       </div>
 
-      <!-- Podium (top 3) -->
       <div class="podium">
-        <!-- 2nd -->
         <div class="podium-item podium-2nd">
           <div class="podium-avatar">
             <img src="/frontend/src/assets/icons/imagem_user.png" alt="2º lugar" />
@@ -428,7 +388,6 @@ async function gerarRanking() {
           <div class="podium-block podium-block--2">2º</div>
         </div>
 
-        <!-- 1st -->
         <div class="podium-item podium-1st">
           <div class="podium-crown"><i class="ri-vip-crown-fill"></i></div>
           <div class="podium-avatar">
@@ -440,7 +399,6 @@ async function gerarRanking() {
           <div class="podium-block podium-block--1">1º</div>
         </div>
 
-        <!-- 3rd -->
         <div class="podium-item podium-3rd">
           <div class="podium-avatar">
             <img src="/frontend/src/assets/icons/imagem_user.png" alt="3º lugar" />
@@ -454,7 +412,6 @@ async function gerarRanking() {
         </div>
       </div>
 
-      <!-- List (4th) -->
       <div class="ranking-list">
         <div class="ranking-list-header">
           <span>Posição</span>
@@ -513,22 +470,12 @@ async function gerarRanking() {
           <div class="rank-change up"><i class="ri-arrow-up-s-fill"></i></div>
         </div>
       </div>
-`
-
-
+`;
   } catch (err) {
     console.error(err);
     document.getElementById("loading").textContent = "Erro ao carregar ranking.";
   }
 }
-
-
-
-
-//===========================
-// Pagina Sobre
-//=========================== 
-
 
 async function UsuariosAtivosSobre() {
   try {
@@ -549,10 +496,6 @@ async function UsuariosAtivosSobre() {
     console.error(err);
   }
 }
-//===========================
-// Pagina Home
-//=========================== 
-
 
 async function UsuariosAtivosHome() {
   try {
@@ -564,9 +507,9 @@ async function UsuariosAtivosHome() {
     const data = await resp.json();
 
     if (resp.ok) {
-      const estudantesAtivosHome = document.getElementById("estudantesAtivosHome");
-      if (estudantesAtivosHome) {
-        estudantesAtivosHome.textContent = data.total_users;
+      const activeStudentsCount = document.getElementById("activeStudentsCount");
+      if (activeStudentsCount) {
+        activeStudentsCount.textContent = data.total_users;
       }
     }
   } catch (err) {
@@ -574,14 +517,11 @@ async function UsuariosAtivosHome() {
   }
 }
 
+async function carregarPontosPerfil() {
+  const id = localStorage.getItem("userId");
 
+  if (!id) return;
 
-async function carregarPontosPerfil(){
-
-  const id = localStorage.getItem("userId"); // pega o id do usuário logado
-
-  if(!id) return; 
-  
   try {
     const resp = await fetch(`http://localhost:3000/getPontosUser/${id}`, {
       method: "GET",
@@ -599,6 +539,5 @@ async function carregarPontosPerfil(){
   } catch (err) {
     console.error(err);
   }
-
 }
 carregarPontosPerfil();

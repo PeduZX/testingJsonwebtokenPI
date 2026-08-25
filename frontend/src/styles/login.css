@@ -207,40 +207,37 @@ form {
 }
 
 label {
-  font-size: 15px;
-  font-family: "Arimo", sans-serif;
-  font-weight: 400;
+  font-size: 13px;
+  font-weight: 500;
+  color: #444;
 }
 
 input {
-  background: #D9D9D9;
+  background-color: #faf7ff;
   border-radius: 10px;
-  box-shadow: 4px 4px 4px 1px rgba(0, 0, 0, 0.30);
+  border: 1.5px solid #e4d9f5;
+  padding: 10px 12px;
   width: 30vw;
-  height: 47px;
-  padding-left: 20px;
-  border: none;
-  transition: 0.5s;
+  font-size: 14px;
+  color: #333;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
 }
 
 input::placeholder {
-  font-size: 15px;
-  font-family: "Arimo" sans-serif;
-  font-weight: 300;
-  color: #7C7C7C;
-}
-
-input::placeholder {
-  font-size: 15px;
-  font-family: "Arimo" sans-serif;
-  font-weight: 300;
-  color: #7C7C7C;
+  font-size: 14px;
+  color: #aaa;
+  font-weight: 400;
 }
 
 input:focus {
-  outline: none;
-  box-shadow: 2px 2px 2px #a9a8aa;
+  border-color: #7b3fe4;
+  background: white;
 }
+
+input:hover {
+  border-color: #c4a8ff;
+} 
 
 .pass-wrap {
   position: relative;
@@ -319,4 +316,18 @@ input:focus {
 
 #a-login:hover {
   color: #210138;
+}
+
+#a-forgot-mypassword{
+  text-align: center; 
+  font-size: 14px; 
+  text-decoration: none;
+  color: grey;
+  opacity: 0.6;
+  transition: color 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+#a-forgot-mypassword:hover {
+  color: #3e006a;
+  opacity: 1;
 }

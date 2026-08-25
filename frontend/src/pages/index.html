@@ -8,30 +8,30 @@
     <link rel="icon" type="image/png" href="../assets/logo/logo.png" />
     <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+    
   </head>
 
   <body>
 
-    <!-- HEADER -->
-    <header id="top-header">
-      <div class="header-wrapper">
-        <a href="index.html" class="brand-link">
-          <img class="brand-logo" src="../assets/logo/logo.png" alt="Hive Study Club logo" />
-          <span class="brand-name">Hive Study Club</span>
+    <header id="siteHeader">
+      <div class="headerInner">
+        <a href="index.html" class="logoLink">
+          <img class="logoImg" src="../assets/logo/logo.png" alt="Hive Study Club logo" />
+          <span class="logoText">Hive Study Club</span>
         </a>
-        <div class="header-controls">
-          <a href="login.html" class="login-btn">Faça Login</a>
-          <button class="burger-btn" id="burgerBtn" aria-label="Abrir menu">
-            <i class="ri-menu-3-line" id="burgerIcon"></i>
+        <div class="headerActions">
+          <a href="login.html" class="btnLogin">Faça Login</a>
+          <button class="menuToggle" id="menuToggle" aria-label="Abrir menu">
+            <i class="ri-menu-3-line" id="menuToggleIcon"></i>
           </button>
         </div>
       </div>
 
-      <div class="nav-overlay" id="navOverlay"></div>
+      <div class="menuOverlay" id="menuOverlay"></div>
 
-      <nav class="side-menu" id="sideMenu">
-        <button class="close-menu-btn" id="closeMenuBtn"><i class="ri-close-line"></i></button>
-        <ul class="menu-list">
+      <nav class="navDrawer" id="navDrawer">
+        <button class="menuCloseBtn" id="menuCloseBtn"><i class="ri-close-line"></i></button>
+        <ul class="navList">
           <li><a href="index.html"><i class="ri-home-2-line"></i><span>HOME</span></a></li>
           <li><a href="sobre.html"><i class="ri-file-marked-line"></i><span>SOBRE PROJETO</span></a></li>
           <li><a href="forum.html"><i class="ri-question-answer-fill"></i><span>CHAT</span></a></li>
@@ -39,105 +39,169 @@
           <li><a href="ranking.html"><i class="ri-trophy-line"></i><span>RANKING</span></a></li>
           <li><a href="perfil.html"><i class="ri-user-line"></i><span>PERFIL</span></a></li>
         </ul>
-        <a href="cadastrar.html" class="signup-btn-menu">CADASTRE-SE</a>
+        <a href="cadastrar.html" class="btnSignupMenu">CADASTRE-SE</a>
       </nav>
     </header>
 
     <main>
 
-      <!-- HERO -->
-      <section class="hero-section">
-        <div class="bg-blob bg-blob--purple"></div>
-        <div class="bg-blob bg-blob--yellow"></div>
+      <section class="heroSection">
+        <div class="blob blobPurple"></div>
+        <div class="blob blobYellow"></div>
 
-        <div class="hero-text">
-          <div class="hero-tag"><i class="ri-sparkling-line"></i> Plataforma colaborativa de estudos</div>
-          <h1 class="hero-title">
+        <div class="heroContent">
+          <div class="heroBadge"><i class="ri-sparkling-line"></i> Plataforma colaborativa de estudos</div>
+          <h1 class="heroTitle">
             Entre em nosso<br />
-            <span class="title-highlight">clube de estudo!</span>
+            <span class="heroHighlight">clube de estudo!</span>
           </h1>
-          <p class="hero-description">
+          <p class="heroDescription">
             Conecte-se com estudantes, compartilhe conhecimento e alcance seus objetivos em grupo.
           </p>
-          <div class="hero-buttons">
-            <a href="cadastrar.html" class="primary-btn">CADASTRE-SE <i class="ri-arrow-right-line"></i></a>
-            <a href="sobre.html" class="ghost-btn">Saiba mais</a>
+          <div class="heroActions">
+            <a href="cadastrar.html" class="btnPrimary">CADASTRE-SE <i class="ri-arrow-right-line"></i></a>
+            <a href="sobre.html" class="btnGhost">Saiba mais</a>
           </div>
-          <div class="hero-stats">
-            <div class="stat-item"><strong id="estudantesAtivosHome">2.4k+</strong><span>Estudantes</span></div>
-            <div class="stat-divider"></div>
+          <div class="heroStats">
+            <div class="statBox"><strong id="activeStudentsCount">2.4k+</strong><span>Estudantes</span></div>
+            <div class="statDivider"></div>
           </div>
         </div>
 
-        <aside class="hero-image-area">
-          <div class="image-glow"></div>
-          <img src="../assets/images/home/imagem back HOME.png" alt="Pessoas estudando" class="hero-image" />
-          <div class="floating-chip chip--bottom"><i class="ri-trophy-fill"></i> Top da semana!</div>
-          <div class="floating-chip chip--top"><i class="ri-group-line"></i> +12 entraram hoje</div>
+        <aside class="heroImageWrap">
+          <div class="heroGlow"></div>
+          <img src="../assets/images/home/imagem back HOME.png" alt="Pessoas estudando" class="heroImage" />
+          <div class="floatingChip chipBottom"><i class="ri-trophy-fill"></i> Top da semana!</div>
+          <div class="floatingChip chipTop"><i class="ri-group-line"></i> +12 entraram hoje</div>
         </aside>
       </section>
 
-      <!-- FEATURE CARDS -->
-      <section class="features-section">
-        <p class="features-label">Por que usar o Hive Study Club?</p>
-        <h2 class="features-title">Tudo que você precisa para estudar melhor</h2>
+      <section class="featuresSection">
+        <p class="featuresLabel">Por que usar o Hive Study Club?</p>
+        <h2 class="featuresTitle">Tudo que você precisa para estudar melhor</h2>
 
-        <div class="features-grid">
+        <div class="featuresGrid">
 
-          <!-- CARD 1 -->
-          <div class="feature-card">
-            <div class="feature-icon feature-icon--purple">
+          <div class="featureCard">
+            <div class="featureIcon featureIconPurple">
               <img src="../assets/icons/cards/5.png" alt="Chat" />
             </div>
             <h3>Chat em tempo real</h3>
             <p>Tire dúvidas e troque ideias com outros estudantes diretamente pela plataforma.</p>
-            <a class="learn-more-btn" href="forum.html">Saiba mais!</a>
+            <a class="btnLearnMore" href="forum.html">Saiba mais!</a>
           </div>
 
-           <!-- CARD 2 -->
-          <div class="feature-card feature-card--highlight">
-            <div class="feature-icon feature-icon--yellow">
+          <div class="featureCard featureCardHighlight">
+            <div class="featureIcon featureIconYellow">
               <img src="../assets/icons/cards/2.png" alt="Material" />
             </div>
             <h3>Material colaborativo</h3>
             <p>Acesse e compartilhe resumos, exercícios e anotações criados pela comunidade.</p>
-            <a class="learn-more-btn learn-more-btn--outline" href="sobre.html">Saiba mais!</a>
+            <a class="btnLearnMore btnLearnMoreOutline" href="sobre.html">Saiba mais!</a>
           </div>
 
-          <!-- CARD 3 -->
-          <div class="feature-card">
-            <div class="feature-icon feature-icon--blue">
+          <div class="featureCard">
+            <div class="featureIcon featureIconBlue">
               <img src="../assets/icons/cards/4.png" alt="Grupos" />
             </div>
             <h3>Grupos de estudo</h3>
             <p>Crie ou entre em grupos por disciplina com pessoas que têm os mesmos objetivos.</p>
-            <a class="learn-more-btn" href="sobre.html">Saiba mais!</a>
+            <a class="btnLearnMore" href="sobre.html">Saiba mais!</a>
           </div>
 
-            <!-- CARD 4 -->
-          <div class="feature-card">
-            <div class="feature-icon feature-icon--green">
+          <div class="featureCard">
+            <div class="featureIcon featureIconGreen">
               <img src="../assets/icons/cards/3.png" alt="Ranking" />
             </div>
             <h3>Ranking e metas</h3>
             <p>Acompanhe seu progresso e mantenha a motivação com desafios e recompensas semanais.</p>
-            <a class="learn-more-btn" href="ranking.html">Saiba mais!</a>
+            <a class="btnLearnMore" href="ranking.html">Saiba mais!</a>
           </div>
 
         </div>
       </section>
 
+      <section class="pageHeaderHome">
+        <span class="page-label"><i class="ri-bee-line"></i> Sobre o projeto</span>
+        <h2 class="page-title">Conheça nosso<br><span class="hl">clube de estudos!</span></h2>
+        <p class="page-sub">Uma plataforma colaborativa feita para quem quer estudar com foco, comunidade e motivação real.</p>
+
+        <div class="stats-strip">
+          <div class="stat-pill"><strong id="estudantesAtivosHome">2k+</strong><span>Estudantes ativos</span></div>
+          <div class="stat-pill"><strong>100+</strong><span>online ao diariamente</span></div>
+        </div>
+      </section>
+
+      <div class="sep">
+        <div class="sep-line"></div>
+        <div class="sep-dot"></div>
+        <div class="sep-line r"></div>
+      </div>
+
+      <div class="cards-wrap">
+
+        <div class="fcard">
+          <span class="fcard-num">01</span>
+          <div class="fcard-icon"><i class="ri-group-3-line"></i></div>
+          <div class="fcard-body">
+            <span class="fcard-tag"><i class="ri-flashlight-line"></i> Comunidade</span>
+            <h3 class="fcard-title">Aprenda em grupo, evolua mais rápido</h3>
+            <p class="fcard-desc">Conecte-se com estudantes que compartilham os mesmos objetivos. Troque ideias, esclareça dúvidas e construa uma rede de apoio real que faz toda a diferença na hora de estudar.</p>
+          </div>
+        </div>
+
+        <div class="fcard">
+          <span class="fcard-num">02</span>
+          <div class="fcard-icon"><i class="ri-trophy-line"></i></div>
+          <div class="fcard-body">
+            <span class="fcard-tag"><i class="ri-medal-line"></i> Gamificação</span>
+            <h3 class="fcard-title">Ranking, XP e conquistas reais</h3>
+            <p class="fcard-desc">Cada hora de estudo conta. Suba no ranking, desbloqueie conquistas e acompanhe seu progresso com um sistema de pontuação que transforma disciplina em motivação diária.</p>
+          </div>
+        </div>
+
+        <div class="fcard">
+          <span class="fcard-num">03</span>
+          <div class="fcard-icon"><i class="ri-chat-smile-3-line"></i></div>
+          <div class="fcard-body">
+            <span class="fcard-tag"><i class="ri-message-3-line"></i> Chat</span>
+            <h3 class="fcard-title">Converse, pergunte, colabore</h3>
+            <p class="fcard-desc">Nosso chat facilita o diálogo entre estudantes em tempo real. Crie salas temáticas, discuta conteúdos e encontre seu grupo de estudo ideal sem complicação.</p>
+          </div>
+        </div>
+
+        <div class="fcard">
+          <span class="fcard-num">04</span>
+          <div class="fcard-icon"><i class="ri-bar-chart-grouped-line"></i></div>
+          <div class="fcard-body">
+            <span class="fcard-tag"><i class="ri-line-chart-line"></i> Progresso</span>
+            <h3 class="fcard-title">Veja seu crescimento acontecer</h3>
+            <p class="fcard-desc">Dashboards claros mostram sua evolução ao longo do tempo. Metas, histórico de sessões e métricas personalizadas para que você nunca perca o fio da meada nos seus estudos.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="cta-section">
+        <div class="cta-inner">
+          <div class="cta-text">
+            <h2>Pronto para entrar no <span class="cta-text-h2-inside">Hive Study Club?</span></h2>
+            <p>Cadastre-se grátis e comece a estudar com propósito hoje.</p>
+          </div>
+          <a href="cadastrar.html" class="cta-btn">Criar minha conta</a>
+        </div>
+      </div>
+
     </main>
 
-    <!-- FOOTER -->
-    <footer id="site-footer">
-      <div class="footer-links">
+    <footer id="siteFooter">
+      <div class="footerLinks">
         <a href="login.html">Login</a>
         <a href="sobre.html">Sobre</a>
         <a href="suporte.html">Suporte</a>
       </div>
-      <div class="footer-copy">copyright.com</div>
-      <div class="footer-social">
+      <div class="footerCopy">copyright.com</div>
+      <div class="footerSocial">
         <a href="#" aria-label="LinkedIn"><i class="ri-linkedin-box-line"></i></a>
         <a href="#" aria-label="GitHub"><i class="ri-github-fill"></i></a>
         <a href="#" aria-label="E-mail"><i class="ri-mail-line"></i></a>
@@ -145,8 +209,18 @@
     </footer>
     <script src="../scripts/script.js"></script>
     <script>
+      UsuariosAtivosHome();
 
-      UsuariosAtivosHome()
+      const fcardsHome = document.querySelectorAll('.fcard');
+      const ioHome = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => entry.target.classList.add('visible'), i * 90);
+            ioHome.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      fcardsHome.forEach(c => ioHome.observe(c));
     </script>
   </body>
 </html>
