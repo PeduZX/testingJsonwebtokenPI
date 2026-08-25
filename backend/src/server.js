@@ -11,6 +11,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static("public"));
 
+const palavraJWT = "Chave_do_jwt";
 
 function autenticar(req, res, next) {
   const authHeader = req.headers.authorization;
@@ -18,7 +19,7 @@ function autenticar(req, res, next) {
 
   const token = authHeader.split(" ")[1];
   try {
-    const decoded = jwt.verify(token);
+    const decoded = jwt.verify(token, palavraJWT);
     req.user = decoded;
     next();
   } catch {
@@ -28,7 +29,7 @@ function autenticar(req, res, next) {
 
 // Cria o usuário no banco e devolve token e os dados
 app.post("/register", (req, res) => {
-  const { nome, email, dataNasc, senha } = req.body;
+  const { nome, email, data_nasc, senha } = req.body;
 
   bcrypt.hash(senha, 10, (err, hash) => {
     if (err)
@@ -36,22 +37,25 @@ app.post("/register", (req, res) => {
 
     db.query(
       "INSERT INTO users (nome, email, data_nasc, senha) VALUES (?, ?, ?, ?)",
-      [nome, email, dataNasc, hash],
+      [nome, email, data_nasc, hash],
       (err, result) => {
-        if (err)
-          return res.status(500).json({ error: "Erro ao cadastrar usuário" });
-
+        if (err) {
+          console.error("Erro ao cadastrar usuário:", err);
+          return res
+            .status(500)
+            .json({ error: "Erro ao cadastrar usuário", detail: err.message });
+        }
         const userId = result.insertId;
-        const token = jwt.sign({ userId, nome }, SECRET, { expiresIn: "7d" });
+        const token = jwt.sign({ userId, nome }, palavraJWT, {
+          expiresIn: "7d",
+        });
 
-        res
-          .status(201)
-          .json({
-            message: "Usuário cadastrado com sucesso!",
-            token,
-            userId,
-            nome,
-          });
+        res.status(201).json({
+          message: "Usuário cadastrado com sucesso!",
+          token,
+          userId,
+          nome,
+        });
       },
     );
   });
@@ -91,7 +95,7 @@ app.post("/login", (req, res) => {
         return res.status(500).json({ error: "Erro ao verificar senha" });
       if (!match) return res.status(401).json({ error: "Senha incorreta" });
 
-      const token = jwt.sign({ userId: user.id, nome: user.nome }, SECRET, {
+      const token = jwt.sign({ userId: user.id, nome: user.nome }, palavraJWT, {
         expiresIn: "7d",
       });
 
@@ -100,12 +104,11 @@ app.post("/login", (req, res) => {
         token,
         userId: user.id,
         nome: user.nome,
-        email: user.email, 
+        email: user.email,
       });
     });
   });
 });
-
 
 app.put("/editarUser", autenticar, (req, res) => {
   const { inputNome, inputSenha } = req.body;
@@ -129,7 +132,6 @@ app.put("/editarUser", autenticar, (req, res) => {
 });
 
 app.get("/totalUsers", (req, res) => {
-
   const query = "SELECT COUNT(id) AS total_users FROM users;";
 
   db.query(query, (err, results) => {
@@ -140,13 +142,10 @@ app.get("/totalUsers", (req, res) => {
 
     res.json({ total_users: results[0].total_users });
   });
-
 });
 
-
 app.get("/ranking", (req, res) => {
-
-  const query = `SELECT nome, pontos FROM users ORDER BY pontos DESC;`
+  const query = `SELECT nome, pontos FROM users ORDER BY pontos DESC;`;
 
   db.query(query, (err, results) => {
     if (err) {
@@ -155,14 +154,10 @@ app.get("/ranking", (req, res) => {
     }
 
     res.json(results);
-
   });
-
 });
 
-
 app.get("/getPontosUser/:id", (req, res) => {
-
   const usersId = req.params.id;
   const query = `SELECT pontos FROM users WHERE id = ?;`;
 
@@ -178,9 +173,7 @@ app.get("/getPontosUser/:id", (req, res) => {
 
     res.json(results[0]);
   });
-
 });
-
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -191,7 +184,6 @@ const storage = multer.diskStorage({
     cb(null, `user_${Date.now()}${ext}`);
   },
 });
-
 
 const upload = multer({
   storage,
@@ -225,17 +217,18 @@ app.post("/uploadFoto/:id", upload.single("fotoPerfil"), (req, res) => {
   });
 });
 
-
-app.use("/uploads", express.static(path.join(__dirname, "../../frontend/src/uploads")));
-
-
+app.use(
+  "/uploads",
+  express.static(path.join(__dirname, "../../frontend/src/uploads")),
+);
 
 app.get("/getUser/:id", (req, res) => {
   const query = `SELECT nome, email, pontos, fotoPerfil FROM users WHERE id = ?`;
 
   db.query(query, [req.params.id], (err, results) => {
     if (err) return res.status(500).json({ error: "Erro ao buscar usuário" });
-    if (results.length === 0) return res.status(404).json({ error: "Usuário não encontrado" });
+    if (results.length === 0)
+      return res.status(404).json({ error: "Usuário não encontrado" });
 
     res.json(results[0]);
   });
@@ -243,31 +236,43 @@ app.get("/getUser/:id", (req, res) => {
 
 const fs = require("fs");
 
-
 app.delete("/deletarFoto/:id", (req, res) => {
   const userId = req.params.id;
 
+  db.query(
+    "SELECT fotoPerfil FROM users WHERE id = ?",
+    [userId],
+    (err, results) => {
+      if (err) return res.status(500).json({ error: "Erro ao buscar foto" });
+      if (results.length === 0)
+        return res.status(404).json({ error: "Usuário não encontrado" });
 
-  db.query("SELECT fotoPerfil FROM users WHERE id = ?", [userId], (err, results) => {
-    if (err) return res.status(500).json({ error: "Erro ao buscar foto" });
-    if (results.length === 0) return res.status(404).json({ error: "Usuário não encontrado" });
+      const fotoCaminho = results[0].fotoPerfil;
 
-    const fotoCaminho = results[0].fotoPerfil;
+      if (fotoCaminho) {
+        const caminhoCompleto = path.join(
+          __dirname,
+          "../../frontend/src",
+          fotoCaminho,
+        );
+        fs.unlink(caminhoCompleto, (err) => {
+          if (err)
+            console.warn("Arquivo não encontrado ou já deletado:", err.message);
+        });
+      }
 
-    if (fotoCaminho) {
-      const caminhoCompleto = path.join(__dirname, "../../frontend/src", fotoCaminho);
-      fs.unlink(caminhoCompleto, (err) => {
-        if (err) console.warn("Arquivo não encontrado ou já deletado:", err.message);
-      });
-    }
-
-    db.query("UPDATE users SET fotoPerfil = NULL WHERE id = ?", [userId], (err) => {
-      if (err) return res.status(500).json({ error: "Erro ao deletar foto" });
-      res.json({ message: "Foto deletada com sucesso" });
-    });
-  });
+      db.query(
+        "UPDATE users SET fotoPerfil = NULL WHERE id = ?",
+        [userId],
+        (err) => {
+          if (err)
+            return res.status(500).json({ error: "Erro ao deletar foto" });
+          res.json({ message: "Foto deletada com sucesso" });
+        },
+      );
+    },
+  );
 });
-
 
 const PORT = 3000;
 app.listen(PORT, () => {

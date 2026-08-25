@@ -4,7 +4,7 @@
 async function cadastrar() {
   const nome = document.getElementById("input-nome").value.trim();
   const email = document.getElementById("input-email").value.trim();
-  const dataNasc = document.getElementById("input-data").value;
+  const data_nasc = document.getElementById("input-data").value;
   const senha = document.getElementById("input-senha").value.trim();
   const nomeAreaMentorar = document.getElementById("select-mentorar").value;
   const nomeAreaMentorado = document.getElementById("select-mentorado").value;
@@ -13,7 +13,7 @@ async function cadastrar() {
     const res1 = await fetch("http://localhost:3000/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ nome, email, dataNasc, senha }),
+      body: JSON.stringify({ nome, email, data_nasc, senha }),
     });
 
     const data1 = await res1.json();
