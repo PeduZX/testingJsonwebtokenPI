@@ -19,61 +19,33 @@
     <div class="bg-blob bg-blob--purple"></div>
     <div class="bg-blob bg-blob--yellow"></div>
 
-    <header id="top-header">
-      <div class="header-wrapper">
-        <a href="index.html" class="brand-link">
-          <img
-            class="brand-logo"
-            src="../assets/logo/logo.png"
-            alt="Hive Study Club logo"
-          />
-          <span class="brand-name">Hive Study Club</span>
+   
+    <header id="siteHeader">
+      <div class="headerInner">
+        <a href="index.html" class="logoLink">
+          <img class="logoImg" src="../assets/logo/logo.png" alt="Hive Study Club logo" />
+          <span class="logoText">Hive Study Club</span>
         </a>
-        <div class="header-controls">
-          <a href="login.html" class="login-btn">Faça Login</a>
-          <button class="burger-btn" id="burgerBtn" aria-label="Abrir menu">
-            <i class="ri-menu-3-line" id="burgerIcon"></i>
+        <div class="headerActions">
+          <a href="login.html" class="btnLogin">Faça Login</a>
+          <button class="menuToggle" id="menuToggle" aria-label="Abrir menu">
+            <i class="ri-menu-3-line" id="menuToggleIcon"></i>
           </button>
         </div>
       </div>
-      <div class="nav-overlay" id="navOverlay"></div>
-      <nav class="side-menu" id="sideMenu">
-        <button class="close-menu-btn" id="closeMenuBtn">
-          <i class="ri-close-line"></i>
-        </button>
-        <ul class="menu-list">
-          <li>
-            <a href="index.html"
-              ><i class="ri-home-2-line"></i><span>HOME</span></a
-            >
-          </li>
-          <li>
-            <a href="sobre.html"
-              ><i class="ri-file-marked-line"></i><span>SOBRE PROJETO</span></a
-            >
-          </li>
-          <li>
-            <a href="forum.html"
-              ><i class="ri-question-answer-fill"></i><span>CHAT</span></a
-            >
-          </li>
-          <li>
-            <a href="suporte.html"
-              ><i class="ri-phone-line"></i><span>SUPORTE</span></a
-            >
-          </li>
-          <li>
-            <a href="ranking.html"
-              ><i class="ri-trophy-line"></i><span>RANKING</span></a
-            >
-          </li>
-          <li>
-            <a href="perfil.html"
-              ><i class="ri-user-line"></i><span>PERFIL</span></a
-            >
-          </li>
+
+      <div class="menuOverlay" id="menuOverlay"></div>
+
+      <nav class="navDrawer" id="navDrawer">
+        <button class="menuCloseBtn" id="menuCloseBtn"><i class="ri-close-line"></i></button>
+        <ul class="navList">
+          <li><a href="index.html"><i class="ri-home-2-line"></i><span>HOME</span></a></li>
+          <li><a href="forum.html"><i class="ri-question-answer-fill"></i><span>CHAT</span></a></li>
+          <li><a href="suporte.html"><i class="ri-phone-line"></i><span>SUPORTE</span></a></li>
+          <li><a href="ranking.html"><i class="ri-trophy-line"></i><span>RANKING</span></a></li>
+          <li><a href="perfil.html"><i class="ri-user-line"></i><span>PERFIL</span></a></li>
         </ul>
-        <a href="cadastrar.html" class="signup-btn-menu">CADASTRE-SE</a>
+        <a href="cadastrar.html" class="btnSignupMenu">CADASTRE-SE</a>
       </nav>
     </header>
 

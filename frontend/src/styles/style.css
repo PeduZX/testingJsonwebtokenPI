@@ -760,8 +760,9 @@ img { display: block; max-width: 100%; }
   gap: 28px;
   flex-wrap: wrap;
   position: relative;
-  overflow: hidden;
+  /* overflow: hidden; removido — estava cortando a borda giratória */
 }
+
 .cta-inner::after {
   content: '';
   position: absolute;
@@ -770,6 +771,30 @@ img { display: block; max-width: 100%; }
   background: radial-gradient(circle, rgba(240,202,36,0.2) 0%, transparent 70%);
   border-radius: 50%;
   pointer-events: none;
+  z-index: 1;
+}
+
+.cta-inner::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  width: calc(100% + 40px);
+  height: calc(100% + 40px);
+  top: -20px; left: -20px;
+  border-radius: 24px;
+  border: 1px solid linear-gradient(
+    rgba(109, 40, 168, 1) 0deg,
+    #FFD700 90deg,
+    rgba(62, 0, 106, 1) 180deg,
+    #FFF033 270deg,
+    rgba(109, 40, 168, 1) 360deg
+  );
+  animation: girarBorda 4s linear infinite;
+}
+
+@keyframes girarBorda {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .cta-text h2 {
